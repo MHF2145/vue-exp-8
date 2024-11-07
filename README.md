@@ -29,13 +29,7 @@ node index.js
 <br>
 
 ### Client side
-
-- First run the command to install required package
-```
-npm install
-```
-
-- Serve the frontend
+- Run the frontend
 ```
 npm run serve
 ```
