@@ -26,6 +26,11 @@ npx knex init
 npx knex migrate:latest
 ```
 
+- Run the backend
+```
+node index.js
+```
+
 <br>
 
 ### Client side
