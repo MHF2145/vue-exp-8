@@ -7,11 +7,6 @@
 <br>
 
 ### Server Side
-- First run the command to install required package
-```
-npm install
-```
-
 - Setup the database in the .env file
 ```
 DB_HOST=127.0.0.1
