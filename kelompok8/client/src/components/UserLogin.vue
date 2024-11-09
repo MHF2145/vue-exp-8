@@ -44,19 +44,26 @@ export default {
   methods: {
     async loginUser() {
       try {
+        // Mengirim permintaan login ke server
         const response = await axios.post('http://localhost:3000/login', {
           username: this.username,
           password: this.password,
         });
-        alert(response.data.message);
         
-        // Simpan token di localStorage
+        // Jika berhasil, tampilkan pesan sukses dan simpan token
+        alert(response.data.message);
         localStorage.setItem('token', response.data.token);
         
         // Redirect ke halaman dashboard setelah login sukses
         this.$router.push('/dashboard');
       } catch (error) {
-        alert(error.response.data.message || 'Login failed');
+        // Pengecekan untuk memastikan error.response aman diakses
+        if (error.response && error.response.data && error.response.data.message) {
+          alert(error.response.data.message);
+        } else {
+          // Jika tidak ada response dari server, tampilkan pesan error default
+          alert('Login failed. Please check your connection or try again.');
+        }
       }
     },
   },
