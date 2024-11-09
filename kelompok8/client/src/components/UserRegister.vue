@@ -55,22 +55,27 @@ export default {
   methods: {
     async registerUser() {
       try {
+        // Mengirim permintaan registrasi ke server
         const response = await axios.post('http://localhost:3000/register', {
           username: this.username,
           email: this.email,
           password: this.password,
         });
         
-        // Menyimpan token di localStorage (jika perlu untuk autentikasi)
+        // Jika berhasil, simpan token (jika diberikan) dan redirect
         localStorage.setItem('token', response.data.token);
-        
-        // Tampilkan pesan sukses
         alert(response.data.message);
-
-        // Redirect ke halaman dashboard setelah berhasil registrasi
+        
+        // Redirect ke halaman dashboard
         this.$router.push('/dashboard');
       } catch (error) {
-        alert(error.response.data.message || 'Registration failed');
+        // Cek apakah error memiliki response dari server
+        if (error.response && error.response.data && error.response.data.message) {
+          alert(error.response.data.message);
+        } else {
+          // Jika tidak ada response (misal: server mati atau tidak terjangkau)
+          alert('Registration failed. Please check your connection or try again.');
+        }
       }
     },
   },
