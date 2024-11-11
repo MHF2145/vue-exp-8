@@ -1,6 +1,6 @@
 // server/controllers/loginController.js
 
-const knex = require('knex')(require('../knexfile').development);
+const knex = require('knex')(require('../../server/knexfile').development);
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 

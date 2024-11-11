@@ -14,7 +14,7 @@ module.exports = {
       database: process.env.DB_NAME
     },
     migrations: {
-      directory: './migrations'
+      directory: '../server2/migrations'
     }
   }
 };

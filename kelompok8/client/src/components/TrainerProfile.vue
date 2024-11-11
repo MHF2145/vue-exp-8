@@ -1,41 +1,43 @@
 <template>
-  <div class="p-4">
-    <h2 class="text-3xl font-bold mb-6">Trainer Profile</h2>
-    
-    <div class="mb-4">
-      <label for="player-name" class="block mb-2">Name Player:</label>
-      <input
-        id="player-name"
-        type="text"
-        v-model="playerName"
-        placeholder="Enter your name"
-        class="border rounded p-2 w-full"
-      />
-    </div>
+  <div class="p-4 bg-gray-50 min-h-screen">
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+      <h2 class="text-3xl font-bold mb-6 text-center">Trainer Profile</h2>
+      
+      <div class="mb-4">
+        <label for="player-name" class="block mb-2 font-semibold">Name Player:</label>
+        <input
+          id="player-name"
+          type="text"
+          v-model="playerName"
+          placeholder="Enter your name"
+          class="border rounded p-2 w-full"
+        />
+      </div>
 
-    <h3 class="text-2xl font-semibold mb-4 mt-6">Favorite Cards</h3>
-    <div class="grid grid-cols-6 gap-4">
-      <div v-for="index in 18" :key="index" class="border rounded p-4 bg-gray-100">
-        Pokemon Card {{ index }}
+      <h3 class="text-2xl font-semibold mb-4 mt-6">Favorite Cards</h3>
+      <div class="grid grid-cols-6 gap-4 mb-6">
+        <div v-for="index in 18" :key="index" class="border rounded p-4 bg-gray-100 hover:bg-gray-200 transition">
+          Pokemon Card {{ index }}
+        </div>
       </div>
-    </div>
 
-    <div v-for="section in sections" :key="section.title" class="mb-6">
-      <div class="flex justify-between items-center">
-        <h3 class="text-2xl font-semibold">{{ section.title }}</h3>
-        <button @click="toggleEdit(section)" class="bg-blue-500 text-white rounded px-4 py-2">
-          {{ section.isEditing ? 'Confirm' : 'Edit' }}
-        </button>
-      </div>
-      <div v-if="section.isEditing" class="mt-4">
-        <button @click="fetchData(section)" class="bg-green-500 text-white rounded px-2 py-1 mb-2">Fetch Data</button>
-      </div>
-      <div v-show="section.isEditing || section.isOpen" class="border rounded p-4 bg-gray-100 mt-4">
-        <ul class="flex flex-wrap space-x-2 justify-center">
-          <li v-for="item in section.items" :key="item" class="bg-gray-200 rounded px-2 py-1">
-            {{ item }}
-          </li>
-        </ul>
+      <div v-for="section in sections" :key="section.title" class="mb-6">
+        <div class="flex justify-between items-center bg-gray-100 p-4 rounded-lg shadow-sm mb-4">
+          <h3 class="text-2xl font-semibold">{{ section.title }}</h3>
+          <button @click="toggleEdit(section)" class="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600 transition">
+            {{ section.isEditing ? 'Confirm' : 'Edit' }}
+          </button>
+        </div>
+        <div v-if="section.isEditing" class="mt-4 mb-4">
+          <button @click="fetchData(section)" class="bg-green-500 text-white rounded px-2 py-1 mb-2 hover:bg-green-600 transition">Fetch Data</button>
+        </div>
+        <div v-show="section.isEditing || section.isOpen" class="border rounded p-4 bg-gray-100 mt-4">
+          <ul class="flex flex-wrap space-x-2 justify-center">
+            <li v-for="item in section.items" :key="item" class="bg-gray-200 rounded px-2 py-1">
+              {{ item }}
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

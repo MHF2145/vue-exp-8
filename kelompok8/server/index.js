@@ -1,16 +1,16 @@
 require('dotenv').config();
 const express = require('express');
-const registerController = require('./controllers/registerController');
-const loginController = require('./controllers/loginController');
+const registerController = require('../server2/controllers/registerController');
+const loginController = require('../server2/controllers/loginController');
 const jwt = require('jsonwebtoken');
-const knex = require('knex')(require('./knexfile').development);
+const knex = require('knex')(require('../server/knexfile').development);
 const cors = require('cors'); // Import CORS
 
 const app = express();
 
 // Setup CORS middleware
 const corsOptions = {
-  origin: 'http://localhost:8080',  // Ganti dengan URL frontend Anda (misalnya http://localhost:8080)
+  origin: 'http://localhost:8081',  // Ganti dengan URL frontend Anda (misalnya http://localhost:8080)
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
