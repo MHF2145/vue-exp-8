@@ -1,67 +1,54 @@
 <template>
-  <div class="p-4 min-h-screen flex flex-col">
-    <h2 class="text-3xl font-bold mb-6">Trainer Profile</h2>
-
-    <!-- Player Name -->
-    <div class="mb-4">
-      <label for="player-name" class="block mb-2">Name Player:</label>
-      <input
-        id="player-name"
-        type="text"
-        v-model="playerName"
-        placeholder="Enter your name"
-        class="border rounded p-2 w-full"
-      />
-    </div>
+  <div class="p-4 min-h-screen flex flex-col bg-gray-100">
+    <h2 class="text-3xl font-bold mb-6 text-center text-yellow-600">Trainer Profile</h2>
 
     <!-- Favorite Pokémon Section -->
-    <h3 class="text-2xl font-semibold mb-4 mt-6">Favorite Pokémon</h3>
+    <h3 class="text-2xl font-semibold mb-4 mt-6 text-red-600">Favorite Pokémon</h3>
     <div v-if="favoritePokemons.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <div v-for="pokemon in favoritePokemons" :key="pokemon.id" class="pokemon-card bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition duration-300">
         <img :src="pokemon.image" :alt="pokemon.name" class="w-16 h-16 object-cover mx-auto mb-2">
-        <h4 class="text-center text-xl">{{ pokemon.name }}</h4>
+        <h4 class="text-center text-xl text-blue-600">{{ pokemon.name }}</h4>
         <button @click="removeFavoritePokemon(pokemon.id)" class="mt-2 bg-red-500 text-white rounded px-4 py-1">
           Remove
         </button>
       </div>
     </div>
-    <p v-else class="text-left">No favorite Pokémon found</p>
+    <p v-else class="text-left text-gray-600">No favorite Pokémon found</p>
 
     <!-- Favorite Moves Section -->
-    <h3 class="text-2xl font-semibold mb-4 mt-6">Favorite Moves</h3>
+    <h3 class="text-2xl font-semibold mb-4 mt-6 text-red-600">Favorite Moves</h3>
     <div v-if="favoriteMoves.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <div v-for="move in favoriteMoves" :key="move.move_id" class="move-card bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition duration-300 flex flex-col items-center justify-between">
-        <h4 class="text-xl font-semibold text-center">{{ move.move_name }}</h4>
-        <p class="text-center">Type: {{ move.move_type }}</p>
-        <p class="text-center">Power: {{ move.power }}</p>
-        <p class="text-center">Accuracy: {{ move.accuracy }}</p>
-        <p class="text-center">PP: {{ move.pp }}</p>
+        <h4 class="text-xl font-semibold text-center text-blue-600">{{ move.move_name }}</h4>
+        <p class="text-center text-gray-700">Type: {{ move.move_type }}</p>
+        <p class="text-center text-gray-700">Power: {{ move.power }}</p>
+        <p class="text-center text-gray-700">Accuracy: {{ move.accuracy }}</p>
+        <p class="text-center text-gray-700">PP: {{ move.pp }}</p>
         <!-- Remove button for each move -->
         <button @click="removeFavoriteMove(move.move_id)" class="mt-4 bg-red-500 text-white rounded px-4 py-1 self-center">
           Remove
         </button>
       </div>
     </div>
-    <p v-else class="text-left">No favorite moves found</p>
-
+    <p v-else class="text-left text-gray-600">No favorite moves found</p>
 
     <!-- Favorite Items Section -->
-    <h3 class="text-2xl font-semibold mb-4 mt-6">Favorite Items</h3>
+    <h3 class="text-2xl font-semibold mb-4 mt-6 text-red-600">Favorite Items</h3>
     <div v-if="favoriteItems.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <div v-for="item in favoriteItems" :key="item.item_id" class="item-card bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition duration-300">
         <img v-if="item.sprite" :src="item.sprite" alt="Item Sprite" class="w-16 h-16 object-cover mx-auto mb-2">
-        <h4 class="text-center text-xl">{{ item.item_name }}</h4>
-        <p class="text-center">{{ item.item_category }}</p>
+        <h4 class="text-center text-xl text-blue-600">{{ item.item_name }}</h4>
+        <p class="text-center text-gray-700">{{ item.item_category }}</p>
         <button @click="removeFavoriteItem(item.item_id)" class="mt-2 bg-red-500 text-white rounded px-4 py-1">
           Remove
         </button>
       </div>
     </div>
-    <p v-else class="text-left">No favorite items found</p>
+    <p v-else class="text-left text-gray-600">No favorite items found</p>
 
     <!-- Favorite Gyms Section as Cards -->
-    <h3 class="text-2xl font-semibold mb-4 mt-8">Favorite Gyms</h3>
-    <button @click="showGymPopup = true" class="bg-blue-500 text-white rounded px-4 py-2 mb-4">
+    <h3 class="text-2xl font-semibold mb-4 mt-8 text-red-600">Favorite Gyms</h3>
+    <button @click="showGymPopup = true" class="add-button mb-4">
       Add Favorite Gym
     </button>
 
@@ -71,19 +58,19 @@
         :key="gym.id" 
         class="gym-card bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition duration-300 flex flex-col items-center justify-between"
       >
-        <h4 class="text-xl font-semibold text-center">{{ gym.gym_name }}</h4>
-        <p class="text-center">Leader: {{ gym.gym_leader }}</p>
-        <p class="text-center">Region: {{ gym.region }}</p>
+        <h4 class="text-xl font-semibold text-center text-blue-600">{{ gym.gym_name }}</h4>
+        <p class="text-center text-gray-700">Leader: {{ gym.gym_leader }}</p>
+        <p class="text-center text-gray-700">Region: {{ gym.region }}</p>
         <button @click="removeFavoriteGym(gym.id)" class="mt-2 bg-red-500 text-white rounded px-4 py-1 self-center">
           Remove
         </button>
       </div>
     </div>
-    <p v-else class="text-left">No favorite gyms found</p>
+    <p v-else class="text-left text-gray-600">No favorite gyms found</p>
 
     <!-- Favorite Trainers Section -->
-    <h3 class="text-2xl font-semibold mb-4 mt-8">Favorite Trainers</h3>
-    <button @click="showTrainerPopup = true" class="bg-blue-500 text-white rounded px-4 py-2 mb-4">
+    <h3 class="text-2xl font-semibold mb-4 mt-8 text-red-600">Favorite Trainers</h3>
+    <button @click="showTrainerPopup = true" class="add-button mb-4">
       Add Favorite Trainer
     </button>
 
@@ -93,19 +80,18 @@
         :key="trainer.id" 
         class="trainer-card bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition duration-300 flex flex-col justify-center items-center"
       >
-        <h4 class="text-xl font-semibold text-center">{{ trainer.username }}</h4>
-        <p class="text-center">Trainer ID: {{ trainer.id }}</p>
-        <!-- Tombol Remove -->
+        <h4 class="text-xl font-semibold text-center text-blue-600">{{ trainer.username }}</h4>
+        <p class="text-center text-gray-700">Trainer ID: {{ trainer.id }}</p>
+        <!-- Remove button -->
         <button @click="removeFavoriteTrainer(trainer.id)" class="mt-4 bg-red-500 text-white rounded px-4 py-1 self-center">
           Remove
         </button>
       </div>
     </div>
 
+    <p v-else class="text-left text-gray-600">No favorite trainers found</p>
 
-    <p v-else class="text-left">No favorite trainers found</p>
-
-    <!-- Komponen Popup AddFavoriteTrainer -->
+    <!-- AddFavoriteTrainer Popup Component -->
     <AddFavoriteTrainer 
       v-if="showTrainerPopup" 
       :isVisible="showTrainerPopup" 
@@ -113,7 +99,7 @@
       @trainerAdded="fetchFavoriteTrainers"
     />
 
-    <!-- Komponen Popup AddFavoriteGym -->
+    <!-- AddFavoriteGym Popup Component -->
     <AddFavoriteGym 
       v-if="showGymPopup" 
       :isVisible="showGymPopup" 
@@ -122,7 +108,6 @@
     />
   </div>
 </template>
-
 
 <script>
 import AddFavoriteGym from './AddFavoriteGym.vue';
@@ -136,17 +121,18 @@ export default {
   },
   data() {
     return {
-      playerName: '',
-      favoritePokemons: [],  // Menyimpan Pokémon favorit
-      favoriteItems: [],     // Menyimpan item favorit
-      favoriteGyms: [],      // Menyimpan gym favorit
-      favoriteTrainers: [],  // Menyimpan trainer favorit
-      favoriteMoves: [],     // Menyimpan move favorit
-      showGymPopup: false,   // Menampilkan popup gym favorit
-      showTrainerPopup: false, // Menampilkan popup trainer favorit
+      username: '',
+      favoritePokemons: [],  // Store favorite Pokémon
+      favoriteItems: [],     // Store favorite items
+      favoriteGyms: [],      // Store favorite gyms
+      favoriteTrainers: [],  // Store favorite trainers
+      favoriteMoves: [],     // Store favorite moves
+      showGymPopup: false,   // Show favorite gym popup
+      showTrainerPopup: false, // Show favorite trainer popup
     };
   },
   created() {
+    this.fetchUsername();
     this.fetchFavoritePokemons();
     this.fetchFavoriteItems();
     this.fetchFavoriteGyms();
@@ -154,6 +140,26 @@ export default {
     this.fetchFavoriteMoves();
   },
   methods: {
+    // Fetch username from database to display the username of trainer login
+    fetchUsername() {
+      const token = localStorage.getItem('token');
+      if (token) {
+        fetch('http://localhost:3000/users', {
+          method: 'GET',
+          headers: { 'Authorization': `Bearer ${token}` },
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.username) {
+            this.username = data.username;
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching username:', error);
+        });
+      }
+    },
+
     // Fetch Favorite Pokemons
     fetchFavoritePokemons() {
       const token = localStorage.getItem('token');
@@ -301,7 +307,7 @@ export default {
       }
     },
 
-      // Method to remove a move from favorites
+    // Method to remove a move from favorites
     removeFavoriteMove(moveId) {
       const token = localStorage.getItem('token');
       if (token) {
@@ -322,7 +328,8 @@ export default {
         });
       }
     },
-     // Method to remove a gym from favorites
+
+    // Method to remove a gym from favorites
     removeFavoriteGym(gymId) {
       const token = localStorage.getItem('token');
       if (token) {
@@ -343,7 +350,8 @@ export default {
         });
       }
     },
-      // Method to remove a trainer from favorites
+
+    // Method to remove a trainer from favorites
     removeFavoriteTrainer(trainerId) {
       const token = localStorage.getItem('token');
       if (token) {
@@ -399,6 +407,7 @@ export default {
   text-align: center;
   font-size: 16px;
   font-weight: 600;
+  color: #1e3a8a;
 }
 
 .pokemon-card button, .item-card button {
@@ -413,5 +422,45 @@ export default {
 
 .pokemon-card button:hover, .item-card button:hover {
   background-color: #e04e4e;
+}
+
+.bg-gray-100 {
+  background-color: #f7fafc;
+}
+
+.text-yellow-600 {
+  color: #d69e2e;
+}
+
+.text-blue-600 {
+  color: #3182ce;
+}
+
+.text-red-600 {
+  color: #e53e3e;
+}
+
+.text-gray-600 {
+  color: #718096;
+}
+
+.text-gray-700 {
+  color: #4a5568;
+}
+
+/* Styling for the add buttons */
+.add-button {
+  background-color: #4299e1;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.add-button:hover {
+  background-color: #3182ce;
 }
 </style>
